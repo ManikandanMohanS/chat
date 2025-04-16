@@ -1,0 +1,31 @@
+.rainbow-cursor-effect {
+  position: relative;
+  z-index: 1;
+}
+
+.rainbow-cursor-effect::before {
+  content: "";
+  position: absolute;
+  top: var(--y, 50%);
+  left: var(--x, 50%);
+  width: 300px;
+  height: 300px;
+  transform: translate(-50%, -50%);
+  background: conic-gradient(
+    from 0deg,
+    red,
+    orange,
+    yellow,
+    green,
+    cyan,
+    blue,
+    violet,
+    red
+  );
+  filter: blur(100px);
+  opacity: 0.6;
+  border-radius: 50%;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+}
