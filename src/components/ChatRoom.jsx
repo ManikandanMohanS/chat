@@ -104,7 +104,7 @@ function ChatRoom() {
     <div className="container-fluid bg-black text-white min-vh-100 d-flex flex-column p-0">
       {/* Fixed Navbar */}
       <nav className="navbar navbar-dark bg-dark px-3" style={{ position: 'fixed', top: 0, width: '100%', zIndex: 20 }}>
-        <span className="navbar-brand mb-0 h4">Namma Voice</span>
+        <span className="navbar-brand mb-0 h4">Namma Chat</span>
         <button className="btn btn-danger" onClick={handleLogout}>Logout</button>
       </nav>
 
