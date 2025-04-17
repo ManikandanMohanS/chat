@@ -190,7 +190,7 @@ function ChatRoom() {
 
       {/* Send Bar */}
       <div
-        className="px-3 py-2"
+        className="px-3 py-2 mb-0"
         style={{
           position: 'fixed',
           bottom: 0,
