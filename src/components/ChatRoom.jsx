@@ -19,13 +19,15 @@ function ChatRoom() {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
   const [currentUser, setCurrentUser] = useState(null);
+  const [authLoading, setAuthLoading] = useState(true);
   const [selectedMessageId, setSelectedMessageId] = useState(null);
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const chatEndRef = useRef(null);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) setCurrentUser(user);
+      setCurrentUser(user);
+      setAuthLoading(false);
     });
     return () => unsubscribe();
   }, []);
@@ -169,6 +171,10 @@ function ChatRoom() {
                       borderRadius: "20px",
                       borderTopLeftRadius: isMe ? "20px" : "5px",
                       borderTopRightRadius: isMe ? "5px" : "20px",
+                      maxWidth: "65vw",
+                      wordWrap: "break-word",
+                      overflowWrap: "break-word",
+                      whiteSpace: "pre-wrap",
                     }}
                   >
                     <div style={{ fontSize: "0.8rem", opacity: 0.7, marginBottom: "2px" }}>
@@ -209,10 +215,11 @@ function ChatRoom() {
           <input
             type="text"
             className="form-control bg-transparent border-0 text-white"
-            placeholder="Type a message..."
+            placeholder={authLoading ? "Loading user..." : "Type a message..."}
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && handleSendMessage()}
+            disabled={authLoading}
             style={{ boxShadow: "none", fontSize: "1rem", padding: "0.5rem 0.75rem" }}
           />
           <button
@@ -223,7 +230,10 @@ function ChatRoom() {
               borderRadius: "20px",
               fontWeight: "bold",
               transition: "transform 0.2s",
+              opacity: authLoading ? 0.5 : 1,
+              cursor: authLoading ? "not-allowed" : "pointer",
             }}
+            disabled={authLoading}
             onClick={handleSendMessage}
             onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.05)")}
             onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
